@@ -14,13 +14,19 @@ O projeto adota o padrão de arquitetura modular de software, separando rigorosa
 Pratica-llm-as-a-judge/
 ├── dia_1_determinismo/
 │   ├── src/
+│   │   └── functions.py
 │   └── tests/
-├── dia_2_deepeval/
+│       ├── test_01_tradicional.py
+│       ├── test_02_quebra_llm.py
+│       └── test_03_relevancy.py
+├── dia_2_suites_e_agentes
 │   ├── src/
+│   │   ├── custom_model.py
+│   │   └── agent.py
 │   └── tests/
-├── dia_3_tool_calling/
-│   ├── src/
-│   └── tests/
+│       ├── test_01_full_suite.py
+│       ├── test_02_debug_sala.py
+│       └── test_03_tool_calling.py
 ├── atividade_assincrona/
 │   ├── src/
 │   ├── tests/

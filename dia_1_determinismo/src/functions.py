@@ -23,7 +23,7 @@ def simular_resposta_llm(pergunta: str) -> str:
     try:
         # Você pode manter o modelo 3.5 aqui se ele está ativo na sua key
         response = client.models.generate_content(
-            model='gemini-3.5-flash',
+            model='gemini-3.5-flash-lite',
             contents=pergunta,
         )
         return response.text.strip()

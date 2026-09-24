@@ -14,22 +14,25 @@ O projeto adota o padrão de arquitetura modular de software, separando rigorosa
 Pratica-llm-as-a-judge/
 ├── dia_1_determinismo/
 │   ├── src/
+│   │   ├── custom_judge.py
 │   │   └── functions.py
 │   └── tests/
 │       ├── test_01_tradicional.py
 │       ├── test_02_quebra_llm.py
 │       └── test_03_relevancy.py
-├── dia_2_suites_e_agentes
+├── dia_2_deepeval/
 │   ├── src/
-│   │   ├── custom_model.py
-│   │   └── agent.py
+│   │   ├── chatbot.py
+│   │   └── custom_model.py
 │   └── tests/
 │       ├── test_01_full_suite.py
 │       ├── test_02_debug_sala.py
 │       └── test_03_tool_calling.py
 ├── atividade_assincrona/
 │   ├── src/
+│   │   └── pipeline.py
 │   ├── tests/
+│   │   └── test_pipeline.py
 │   └── BUG_REPORT_TEMPLATE.md
 ├── requirements.txt
 ├── .gitignore
@@ -40,28 +43,23 @@ Pratica-llm-as-a-judge/
 
 ## 🎯 Detalhamento dos Módulos e Atividades
 
-### 1. `dia_1_determinismo/` — O Limite do Paradigma Determinístico
-Focado em demonstrar na prática por que testes tradicionais (baseados em igualdade estrita de strings) quebram diante de saídas em linguagem natural.
-* **`src/`**: Contém funções determinísticas convencionais e funções simulando respostas de modelos de linguagem (LLMs).
+### 1. `dia_1_determinismo/` — O Limite do Paradigma Determinístico e Introdução ao LLM-as-a-Judge
+Focado em demonstrar na prática por que testes tradicionais (baseados em igualdade estrita de strings) quebram diante de saídas em linguagem natural e introduzir avaliações semânticas básicas.
+* **`src/`**: Contém funções determinísticas convencionais, funções simulando respostas de modelos de linguagem (LLMs) e o juiz customizado (`custom_judge.py`).
 * **`tests/`**:
   * **Script 1 (Teste Unitário Tradicional):** Teste com `pytest` contra uma função estática. Demonstra o fluxo determinístico funcionando perfeitamente (passando com assert exato).
   * **Script 2 (Quebra do Teste com LLM):** Aplicação da mesma lógica de teste rígido sobre o retorno do LLM. Demonstra a falha do teste por variação sintática, mesmo quando a resposta está semanticamente correta.
+  * **Script 3 (Teste de Relevância):** Configuração do primeiro teste avaliativo com LLM utilizando a métrica *Answer Relevancy* para validar se a resposta atende à pergunta.
 
-### 2. `dia_2_deepeval/` — Avaliação com DeepEval (LLM-as-a-Judge)
-Introdução à avaliação probabilística automatizada utilizando um LLM como avaliador através do framework DeepEval.
-* **`src/`**: Implementação do wrapper customizado utilizando provedor de inferência gratuito para atuar como juiz sem custos de execução.
+### 2. `dia_2_deepeval/` — Suítes Avançadas, Agentes e Tool Calling
+Foco na avaliação probabilística automatizada através do framework DeepEval, testando cenários complexos e validando a decisão de agentes autônomos.
+* **`src/`**: Implementação do agente/chatbot e de modelos customizados para avaliação.
 * **`tests/`**:
-  * **Script 1 (Métrica Simples de Relevância):** Configuração do primeiro teste utilizando a métrica *Answer Relevancy* para validar se a resposta atende à pergunta.
-  * **Script 2 (Suíte Completa com Múltiplas Métricas):** Execução de testes combinando métricas essenciais (*Faithfulness*, *Answer Relevancy* e *Hallucination*). Demonstra o teste passando com contexto adequado e falhando ao injetar prompts propositalmente errados.
+  * **Script 1 (Suíte Completa com Múltiplas Métricas):** Execução de testes combinando métricas essenciais (*Faithfulness*, *Answer Relevancy* e *Hallucination*). Demonstra o teste passando com contexto adequado e falhando ao injetar prompts propositalmente errados.
+  * **Script 2 (Debug Guiado em Sala):** Resolução de um cenário prático com erro lógico simples para exercitar a leitura dos relatórios do DeepEval e correção ao vivo.
+  * **Script 3 (Teste de Tool Calling):** Avaliação da rota de decisão do agente, garantindo que ele invoque a ferramenta correta e envie os argumentos esperados no payload JSON.
 
-### 3. `dia_3_tool_calling/` — Decisão, Agentes e Debug
-Validação comportamental de agentes que executam ações e ferramentas no backend.
-* **`src/`**: Implementação do agente e das ferramentas externas (*tools*) que ele pode acionar.
-* **`tests/`**:
-  * **Script 1 (Debug Guiado em Sala):** Resolução de um cenário prático com erro lógico simples para exercitar a leitura dos relatórios do DeepEval e correção ao vivo.
-  * **Script 2 (Teste de Tool Calling):** Avaliação da rota de decisão do agente, garantindo que ele invoque a ferramenta correta e envie os argumentos esperados no payload JSON.
-
-### 4. `atividade_assincrona/` — Desafio: A Falsa Sensação de Segurança
+### 3. `atividade_assincrona/` — Desafio: A Falsa Sensação de Segurança
 Laboratório de *Code Review* e depuração crítica de testes automatizados.
 * **`src/`**: Pipeline de atendimento baseado em IA.
 * **`tests/`**: Suíte de testes com inconsistências lógicas de configuração.
@@ -126,11 +124,6 @@ A execução é modularizada por diretório usando o `pytest`:
 * **Executar os testes do Dia 2:**
   ```bash
   pytest dia_2_deepeval/tests/ -v
-  ```
-
-* **Executar os testes do Dia 3:**
-  ```bash
-  pytest dia_3_tool_calling/tests/ -v
   ```
 
 * **Executar os testes da Atividade Assíncrona:**

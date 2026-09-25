@@ -31,14 +31,6 @@ def validar_resposta(resposta: str) -> bool:
     if len(resposta) < 10:
         return False
 
-    # BUG 1:
-    # O resultado da validação foi invertido.
-    #
-    # Uma resposta que passou por todas as validações deveria
-    # retornar True.
-    #
-    # Porém, o código retorna False.
-
     return False
 
 
@@ -65,13 +57,6 @@ def recuperar_contexto(pergunta: str) -> str:
             "O prazo de entrega é de até 5 dias úteis."
     }
 
-    # BUG 2:
-    # Caso a pergunta não seja encontrada, o sistema deveria
-    # retornar um contexto neutro ou informar que não encontrou
-    # informação.
-    #
-    # Em vez disso, utiliza um contexto fixo e incorreto.
-
     return contexto_base.get(
         pergunta,
         "A capital do Brasil é Rio de Janeiro."
@@ -92,16 +77,6 @@ def avaliar_relevancia(score: float) -> bool:
     """
 
     threshold = 0.8
-
-    # BUG 3:
-    # O operador está invertido.
-    #
-    # O correto seria considerar a resposta aprovada quando:
-    #
-    #     score >= threshold
-    #
-    # Porém, o código considera aprovado quando o score
-    # está abaixo do threshold.
 
     return score < threshold
 
@@ -127,12 +102,6 @@ def selecionar_ferramenta(pergunta: str) -> str:
     if "devolução" in pergunta_lower:
         return "consultar_politica_devolucao"
 
-    # BUG 4:
-    # Para perguntas desconhecidas, o sistema deveria retornar
-    # None ou uma indicação de que nenhuma ferramenta foi
-    # encontrada.
-    #
-    # Em vez disso, sempre escolhe uma ferramenta.
 
     return "consultar_pedido"
 
@@ -151,15 +120,6 @@ def calcular_score_final(
 
     Cada métrica possui o mesmo peso.
     """
-
-    # BUG 5:
-    # As três métricas deveriam ter o mesmo peso.
-    #
-    # O cálculo abaixo dá peso dobrado para segurança.
-    #
-    # Correto:
-    #
-    #     (relevancia + corretude + seguranca) / 3
 
     score = (
         relevancia

@@ -64,7 +64,7 @@ Laboratório de *Code Review* e depuração crítica de testes automatizados.
 * **`src/`**: Pipeline de atendimento baseado em IA.
 * **`tests/`**: Suíte de testes com inconsistências lógicas de configuração.
 * **`BUG_REPORT_TEMPLATE.md`**: Template padronizado para preenchimento e entrega da análise.
-
+* **`LINK DAS AULAS GRAVADAS`**: https://www.youtube.com/watch?v=9QCyfe9o90c&list=PLSiOX_qyTStA&index=3
 ---
 
 ## ⚙️ Pré-requisitos

@@ -17,11 +17,12 @@ def test_validar_resposta():
     resposta = "Esta é uma resposta válida."
 
     resultado = validar_resposta(resposta)
-
+    
     # O teste está verificando apenas que a função retorna
     # um booleano.
 
     assert isinstance(resultado, bool)
+    assert resultado
 
 
 # ============================================================
@@ -37,6 +38,7 @@ def test_recuperar_contexto():
     assert contexto is not None
     assert isinstance(contexto, str)
     assert len(contexto) > 0
+    
 
 
 # ============================================================
@@ -53,6 +55,7 @@ def test_avaliar_relevancia():
     # Não verifica se 0.95 deveria ser aprovado.
 
     assert isinstance(resultado, bool)
+    assert resultado
 
 
 # ============================================================
@@ -108,10 +111,12 @@ def test_pipeline_completo():
         resultado["resposta_valida"],
         bool
     )
+    assert resultado["resposta_valida"]
 
     assert isinstance(
         resultado["relevancia_aprovada"],
         bool
     )
+    assert resultado["relevancia_aprovada"]
 
     assert 0 <= resultado["score_final"] <= 1

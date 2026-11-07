@@ -31,7 +31,7 @@ def validar_resposta(resposta: str) -> bool:
     if len(resposta) < 10:
         return False
 
-    return False
+    return True
 
 
 # ============================================================
@@ -58,8 +58,7 @@ def recuperar_contexto(pergunta: str) -> str:
     }
 
     return contexto_base.get(
-        pergunta,
-        "A capital do Brasil é Rio de Janeiro."
+        pergunta
     )
 
 
@@ -78,7 +77,7 @@ def avaliar_relevancia(score: float) -> bool:
 
     threshold = 0.8
 
-    return score < threshold
+    return score > threshold
 
 
 # ============================================================
@@ -103,7 +102,7 @@ def selecionar_ferramenta(pergunta: str) -> str:
         return "consultar_politica_devolucao"
 
 
-    return "consultar_pedido"
+    return None
 
 
 # ============================================================
@@ -124,8 +123,8 @@ def calcular_score_final(
     score = (
         relevancia
         + corretude
-        + (seguranca * 2)
-    ) / 4
+        + seguranca 
+    ) / 3
 
     return score
 
